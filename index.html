@@ -1,0 +1,147 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#12233e"><title>TOEIC 単語トレーニング</title><style>
+:root{font-family:-apple-system,BlinkMacSystemFont,'Hiragino Kaku Gothic ProN',sans-serif;color:#14213a;background:#f4f7fb}*{box-sizing:border-box}body{margin:0}header{background:#12233e;color:white;padding:25px 20px 19px}main{max-width:700px;margin:auto;padding:16px 15px 70px}.muted{color:#64748b;font-size:13px}.panel{background:white;border-radius:17px;padding:19px;margin:12px 0;box-shadow:0 2px 12px #172e4c0b}h1{font-size:22px;margin:0 0 5px}h2{font-size:17px;margin:0 0 12px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.metric{background:#edf3fa;border-radius:12px;text-align:center;padding:12px 4px}.metric b{display:block;font-size:25px}.metric span{font-size:11px;color:#52627a}button,.filebtn{border:0;border-radius:12px;padding:13px 14px;background:#1764b4;color:white;font-size:15px;font-weight:650;cursor:pointer}button:disabled{opacity:.4;cursor:default}.secondary{background:#e7edf5;color:#18314f}.danger{background:#fae8e8;color:#9c2b2b}.outline{border:1px solid #d5dfed;background:white;color:#18314f}.buttons{display:flex;gap:9px;flex-wrap:wrap}.buttons>*{flex:1}.buttons button{min-width:120px}.big{font-size:37px;font-weight:750;text-align:center;margin:28px 0 14px;overflow-wrap:anywhere}.meaning{font-size:22px;font-weight:650;text-align:center;margin:17px 0}.example{text-align:center;font-size:15px;line-height:1.6;color:#475569;margin:10px 0 20px}.stage{color:#1764b4;font-size:13px;font-weight:700}.progress{height:7px;background:#e7edf5;border-radius:9px;overflow:hidden;margin:13px 0}.bar{height:100%;background:#16a085;transition:width .2s}.hidden{display:none}.note{font-size:13px;line-height:1.65;color:#516178}.notice{background:#fff4df;border-radius:12px;padding:12px;font-size:13px;color:#725217}.listrow{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #edf0f5;padding:11px 0;gap:8px}.listrow:last-child{border:0}.tag{font-size:11px;border-radius:8px;background:#eaf1fa;padding:5px 7px;color:#376184}input[type=file]{display:none}input[type=number]{width:72px;padding:8px;border:1px solid #ccd6e4;border-radius:9px;font-size:16px}footer{text-align:center;font-size:12px;color:#708097;margin-top:30px}#toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#18314f;color:white;border-radius:10px;padding:10px 15px;display:none;max-width:90vw}.topline{display:flex;justify-content:space-between;align-items:center;gap:10px}a{color:#1764b4}
+</style></head><body><header><div style="max-width:700px;margin:auto"><h1>TOEIC 単語トレーニング</h1><div style="font-size:13px;color:#c4d7ee">意味 → 例文 → 思い出す。毎日少しずつ。</div></div></header><main><section id="home"></section><section id="study" class="hidden"></section><section id="settings"></section><footer>学習履歴はこの端末のブラウザに保存されます。定期的にバックアップしてください。</footer></main><div id="toast" role="status"></div><script>
+'use strict';
+const raw=`available|利用できる・空いている|Are you available tomorrow?|明日は時間がありますか？
+require|必要とする|This job requires experience.|この仕事には経験が必要です。
+provide|提供する|We provide free Wi-Fi.|無料Wi-Fiを提供しています。
+confirm|確認する|Please confirm your reservation.|予約を確認してください。
+increase|増える・増やす|Sales increased last year.|昨年、売上が増えました。
+reduce|減らす|We need to reduce costs.|費用を減らす必要があります。
+attend|出席する|I will attend the meeting.|私は会議に出席します。
+purchase|購入する・購入|She purchased a computer.|彼女はパソコンを購入しました。
+delay|遅れる・遅延|The train was delayed.|電車が遅れました。
+improve|改善する・上達する|I want to improve my English.|英語を上達させたいです。
+arrange|手配する|I will arrange a meeting.|会議を手配します。
+appointment|予約・約束|I have an appointment today.|今日は予約があります。
+apply|応募する・適用する|I will apply for the job.|その仕事に応募します。
+approve|承認する|The manager approved the plan.|上司が計画を承認しました。
+announce|発表する|They announced a new product.|彼らは新製品を発表しました。
+annual|毎年の|We have an annual meeting.|毎年会議があります。
+applicant|応募者|We interviewed five applicants.|応募者5人を面接しました。
+assign|割り当てる|She assigned me a task.|彼女は私に仕事を割り当てました。
+assist|手伝う|Can you assist me?|手伝っていただけますか？
+avoid|避ける|Please avoid this road.|この道路は避けてください。
+budget|予算|We have a small budget.|予算は少ないです。
+cancel|取り消す|I need to cancel my order.|注文を取り消す必要があります。
+charge|料金を請求する|They charge a small fee.|少額の料金がかかります。
+client|顧客|Our client called today.|今日、顧客から電話がありました。
+colleague|同僚|My colleague helped me.|同僚が助けてくれました。
+complete|完了する|Please complete the form.|用紙に記入を完了してください。
+conduct|実施する|We conducted a survey.|調査を実施しました。
+consider|検討する|Please consider this idea.|この案を検討してください。
+contact|連絡する|Please contact the office.|事務所に連絡してください。
+contract|契約|I signed the contract.|契約書に署名しました。
+contribute|貢献する|She contributes to the team.|彼女はチームに貢献しています。
+convenient|便利な|This location is convenient.|この場所は便利です。
+current|現在の|What is the current price?|現在の価格はいくらですか？
+customer|顧客|The customer needs help.|その顧客は助けを必要としています。
+deadline|締め切り|The deadline is Friday.|締め切りは金曜日です。
+deliver|配達する|We deliver packages daily.|毎日荷物を配達します。
+demand|需要|Demand is increasing.|需要が増えています。
+department|部署|She works in sales department.|彼女は営業部で働いています。
+describe|説明する|Please describe the problem.|問題を説明してください。
+detail|詳細|Please check the details.|詳細を確認してください。
+develop|開発する|We develop new software.|新しいソフトを開発しています。
+discount|割引|You can get a discount.|割引を受けられます。
+discuss|話し合う|Let's discuss the schedule.|予定について話し合いましょう。
+document|書類|Please send the document.|書類を送ってください。
+efficient|効率的な|This method is efficient.|この方法は効率的です。
+employee|従業員|We have 100 employees.|従業員は100人です。
+encourage|励ます・促す|We encourage new ideas.|新しいアイデアを奨励します。
+equipment|設備・機器|The equipment is new.|その設備は新しいです。
+estimate|見積もる・見積もり|Please send an estimate.|見積もりを送ってください。
+event|催し・行事|The event starts at noon.|催しは正午に始まります。
+expand|拡大する|We plan to expand our business.|事業を拡大する予定です。
+expense|費用|Travel expenses are covered.|旅費は支給されます。
+experience|経験|She has ten years of experience.|彼女には10年の経験があります。
+facility|施設|The facility opens at nine.|施設は9時に開きます。
+feature|特徴・機能|This phone has a new feature.|この電話には新機能があります。
+feedback|意見・感想|Thank you for your feedback.|ご意見ありがとうございます。
+financial|財務の|We reviewed the financial report.|財務報告書を確認しました。
+frequently|頻繁に|I frequently travel for work.|仕事で頻繁に出張します。
+guarantee|保証する|We guarantee the quality.|品質を保証します。
+handle|対応する|I can handle the request.|その依頼に対応できます。
+immediately|すぐに|Please call me immediately.|すぐに電話してください。
+include|含む|The price includes tax.|価格には税金が含まれます。
+industry|産業|She works in the food industry.|彼女は食品業界で働いています。
+inform|知らせる|Please inform the team.|チームに知らせてください。
+inquiry|問い合わせ|We received an inquiry.|問い合わせを受けました。
+instruction|指示・説明|Please follow the instructions.|指示に従ってください。
+insurance|保険|The company offers insurance.|会社は保険を提供しています。
+interview|面接|I have an interview tomorrow.|明日は面接があります。
+inventory|在庫|We checked the inventory.|在庫を確認しました。
+invoice|請求書|Please send the invoice.|請求書を送ってください。
+issue|問題・発行する|We have an issue to solve.|解決すべき問題があります。
+item|品目|This item is on sale.|この商品はセール中です。
+launch|発売する|We will launch the product.|その製品を発売します。
+maintain|維持する|We maintain high quality.|高い品質を維持しています。
+manage|管理する|I manage the schedule.|私は予定を管理しています。
+manufacturer|製造業者|The manufacturer is in Japan.|製造業者は日本にあります。
+material|材料・資料|We need more materials.|もっと材料が必要です。
+mention|言及する|She mentioned the deadline.|彼女は締め切りに言及しました。
+necessary|必要な|Is this document necessary?|この書類は必要ですか？
+notify|通知する|We will notify you tomorrow.|明日お知らせします。
+obtain|得る|You must obtain permission.|許可を得る必要があります。
+offer|申し出る・提供する|They offered me a job.|仕事の申し出を受けました。
+operate|操作する・運営する|Can you operate this machine?|この機械を操作できますか？
+opportunity|機会|This is a good opportunity.|これはよい機会です。
+option|選択肢|We have two options.|選択肢は2つあります。
+order|注文する・注文|I placed an order online.|オンラインで注文しました。
+organize|整理する・企画する|We organized the files.|ファイルを整理しました。
+participate|参加する|I will participate in the event.|その行事に参加します。
+payment|支払い|Payment is due tomorrow.|支払い期限は明日です。
+performance|業績・性能|Sales performance improved.|販売実績が改善しました。
+permit|許可する|Smoking is not permitted.|喫煙は許可されていません。
+policy|方針・規則|Please read the company policy.|会社の規則を読んでください。
+prepare|準備する|I will prepare the report.|報告書を準備します。
+previous|以前の|Please check the previous version.|前の版を確認してください。
+process|手順・処理する|We improved the process.|手順を改善しました。
+productivity|生産性|Productivity increased this year.|今年は生産性が向上しました。
+promote|促進する・昇進させる|We promote our new service.|新サービスを宣伝します。
+proposal|提案|I reviewed the proposal.|提案書を確認しました。
+receipt|領収書|Please keep the receipt.|領収書を保管してください。
+recommend|勧める|I recommend this book.|この本をおすすめします。
+refund|返金|Can I get a refund?|返金してもらえますか？
+register|登録する|Please register online.|オンラインで登録してください。
+replace|交換する|We need to replace the part.|部品を交換する必要があります。
+request|依頼する・依頼|I received your request.|ご依頼を受け取りました。
+respond|返答する|Please respond by Friday.|金曜日までに返答してください。
+responsible|責任がある|She is responsible for sales.|彼女は営業を担当しています。
+result|結果|We checked the results.|結果を確認しました。
+review|見直す・レビュー|Let's review the report.|報告書を見直しましょう。
+schedule|予定・予定を組む|We changed the schedule.|予定を変更しました。
+shipment|発送・出荷|The shipment arrived today.|出荷品が今日届きました。
+specific|具体的な|Please give a specific example.|具体例を挙げてください。
+submit|提出する|Please submit the form.|用紙を提出してください。
+supplier|供給業者|We contacted the supplier.|仕入先に連絡しました。
+support|支援する|We support our customers.|顧客を支援しています。
+survey|調査|We completed the survey.|調査を完了しました。
+temporary|一時的な|This is a temporary change.|これは一時的な変更です。
+update|更新する|Please update the file.|ファイルを更新してください。
+valid|有効な|This ticket is valid today.|この券は今日有効です。
+various|さまざまな|We offer various services.|さまざまなサービスを提供しています。
+warehouse|倉庫|The goods are in the warehouse.|商品は倉庫にあります。`;
+const vocab=raw.split('\n').map((r,i)=>{const [en,ja,ex,ej]=r.split('|');return {id:i,en,ja,ex,ej}});const KEY='toeic-vocab-v1';const today=()=>{let d=new Date();return [d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-')};const days=(a,b)=>Math.round((new Date(b+'T12:00:00')-new Date(a+'T12:00:00'))/86400000);let state;try{state=JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){};if(!state||!Array.isArray(state.cards))state={cards:[],log:[],settings:{batch:20}};state.settings ||= {batch:20};state.log ||= [];
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){toast('保存に失敗しました。バックアップしてください。')}}function toast(s){let t=document.getElementById('toast');t.textContent=s;t.style.display='block';setTimeout(()=>t.style.display='none',2400)}function card(id){return state.cards.find(x=>x.id===id)}function todayReview(c){const age=days(c.cycle,today());return age<=1||c.weak}function weakCount(){return state.cards.filter(c=>c.weak).length}function pending(){return state.cards.filter(c=>todayReview(c)&&c.lastReview!==today())}function newCount(){return state.cards.filter(c=>c.cycle===today()).length}function nextFresh(){return vocab.filter(v=>!card(v.id)).slice(0,state.settings.batch||20)}function batchWeak(){return state.cards.filter(c=>c.weak).sort((a,b)=>a.cycle.localeCompare(b.cycle)).slice(0,state.settings.batch||20)}let session=null;
+function render(){document.getElementById('home').classList.toggle('hidden',!!session);document.getElementById('study').classList.toggle('hidden',!session);if(session){renderSession();return}let p=pending(),w=weakCount(),fresh=nextFresh(),limit=state.settings.batch||20;let html=`<div class="panel"><div class="topline"><h2>今日の学習</h2><span class="tag">${today()}</span></div><div class="grid"><div class="metric"><b>${p.length}</b><span>復習待ち</span></div><div class="metric"><b>${w}</b><span>苦手単語</span></div><div class="metric"><b>${state.cards.length}</b><span>学習済み</span></div></div></div>`;
+if(p.length)html+=`<div class="panel"><h2>① 今日の復習</h2><p class="note">学習当日と翌日は全問、翌々日以降は苦手単語のみ。1日1回の判定です。</p><button style="width:100%" onclick="startReview()">復習を始める（${p.length}語）</button></div>`;
+if(w>=limit){let b=batchWeak();html+=`<div class="panel"><h2>② 苦手単語の再学習</h2><div class="notice">苦手単語が${w}語。新しい単語の追加を一時停止しています。</div><p class="note">苦手から${b.length}語を選び、3段階で学び直します。前日分の復習は別途続きます。</p><button style="width:100%" onclick="startLearning('weak')">苦手${b.length}語を再学習</button></div>`}else if(fresh.length){html+=`<div class="panel"><h2>② 新しい単語</h2><p class="note">20語単位で追加できます。調子がよければ同じ日にもう1セット。</p><button style="width:100%" onclick="startLearning('new')">新規${fresh.length}語を学習</button></div>`}else html+=`<div class="panel"><h2>新規単語は終了</h2><p class="note">収録済みの${vocab.length}語を学習しました。苦手単語の復習を続けられます。</p></div>`;
+html+=`<div class="panel"><h2>学習履歴</h2>${state.log.length?state.log.slice(-7).reverse().map(x=>`<div class="listrow"><span>${x.date}　${x.type}</span><span class="tag">${x.count}語${x.missed===undefined?'':`・不正解${x.missed}`}</span></div>`).join(''):'<p class="note">まだ学習記録がありません。</p>'}</div>`;
+document.getElementById('home').innerHTML=html;document.getElementById('settings').innerHTML=`<div class="panel"><h2>設定とバックアップ</h2><p class="note">苦手単語が20語以上なら、新規学習の代わりに苦手20語を再学習します。学習当日と翌日は全問復習し、3日目以降は苦手だけを出題します。</p><div class="buttons"><button class="secondary" onclick="exportData()">履歴を保存（JSON）</button><label class="filebtn secondary" style="text-align:center;cursor:pointer">履歴を復元<input type="file" accept="application/json,.json" onchange="importData(event)"></label></div><p class="note">端末変更・ブラウザデータ削除に備え、週1回程度バックアップをおすすめします。ファイルから開いた場合、iPhoneの環境によって保存が継続しないことがあります。</p><button class="danger" onclick="resetAll()">全履歴を消去</button></div>`}
+function startLearning(kind){const vs=kind==='weak'?batchWeak().map(c=>vocab[c.id]):nextFresh();if(!vs.length)return;session={type:'learn',kind,ids:vs.map(x=>x.id),idx:0,step:0,reveal:false,missed:new Set(),completed:[],started:today()};render()}
+function startReview(){const cs=pending();if(!cs.length)return;session={type:'review',ids:cs.map(c=>c.id),idx:0,reveal:false,missed:new Set(),completed:[],started:today()};render()}
+function renderSession(){let s=session,v=vocab[s.ids[s.idx]],isLearn=s.type==='learn',stage=isLearn?s.step:2;let label=isLearn?['STEP 1・意味を知る','STEP 2・例文で理解','STEP 3・思い出す'][stage]:'復習テスト';let body=`<div class="panel"><div class="topline"><span class="stage">${label}</span><span class="muted">${s.idx+1} / ${s.ids.length}</span></div><div class="progress"><div class="bar" style="width:${((s.idx+(stage+1)/3)/s.ids.length)*100}%"></div></div><div class="big">${v.en}</div>`;
+if(isLearn&&stage===0)body+=`<div class="meaning">${v.ja}</div><button style="width:100%" onclick="nextStep()">例文へ進む →</button>`;
+else if(isLearn&&stage===1)body+=`<div class="meaning">${v.ja}</div><div class="example">${v.ex}<br>${v.ej}</div><button style="width:100%" onclick="nextStep()">意味を思い出す →</button>`;
+else if(!s.reveal)body+=`<p class="note" style="text-align:center">答えを見る前に、日本語の意味を思い出してください。</p><button style="width:100%" onclick="showAnswer()">答えを見る</button>`;
+else body+=`<div class="meaning">${v.ja}</div><div class="example">${v.ex}<br>${v.ej}</div><div class="buttons"><button class="secondary" onclick="answer(false)">× 覚えていない</button><button onclick="answer(true)">✓ 覚えていた</button></div>`;
+body+=`<div style="margin-top:18px"><button class="outline" onclick="quitSession()">中断してホームへ</button></div></div>`;document.getElementById('study').innerHTML=body}
+function nextStep(){if(session.step<2){session.step++;render()}}function showAnswer(){session.reveal=true;render()}
+function answer(ok){let s=session,id=s.ids[s.idx],c=card(id);if(s.type==='review'){if(c){c.lastReview=today();c.weak=!ok;c.lastAnswer=ok}}else{if(!c){c={id,cycle:today(),weak:!ok,lastReview:today(),lastAnswer:ok};state.cards.push(c)}else{c.cycle=today();c.lastReview=today();c.weak=!ok;c.lastAnswer=ok}}if(!ok)s.missed.add(id);s.completed.push(id);save();if(s.idx+1<s.ids.length){s.idx++;s.step=0;s.reveal=false;render()}else{let n=s.ids.length,m=s.missed.size;state.log.push({date:today(),type:s.type==='review'?'復習':s.kind==='weak'?'苦手再学習':'新規学習',count:n,missed:m});save();session=null;render();toast(`${n}語完了！ 間違い${m}語`)}}
+function quitSession(){if(!confirm('学習を中断しますか？ 回答済みの結果は保存されています。'))return;session=null;render()}
+function exportData(){const b=new Blob([JSON.stringify({format:'toeic-vocab-v1',saved:today(),state},null,2)],{type:'application/json'}),u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download='toeic-backup-'+today()+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000)}
+async function importData(ev){const f=ev.target.files?.[0];if(!f)return;try{const d=JSON.parse(await f.text());if(d.format!=='toeic-vocab-v1'||!Array.isArray(d.state?.cards)||!Array.isArray(d.state?.log))throw Error('形式が違います');if(!confirm('現在の学習履歴をバックアップの内容で上書きしますか？'))return;state=d.state;save();session=null;render();toast('復元しました')}catch(e){alert('読み込めませんでした：'+e.message)}ev.target.value=''}
+function resetAll(){if(confirm('すべての学習履歴を削除します。元に戻せません。よろしいですか？')){localStorage.removeItem(KEY);state={cards:[],log:[],settings:{batch:20}};session=null;render()}}
+render();
+</script></body></html>
